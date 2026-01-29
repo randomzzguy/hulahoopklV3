@@ -45,11 +45,12 @@
         }
 
         body {
-            background-color: transparent;
-            /* Changed from var(--bg-void) to transparent for fixed-bg */
+            background-color: var(--bg-void);
+            /* Set back to void as base */
             color: var(--text-primary);
             font-family: var(--font-body);
             overflow-x: hidden;
+            width: 100%;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -271,39 +272,64 @@
         }
 
         .logo-animate {
-            width: clamp(360px, 55vw, 900px);
+            width: clamp(280px, 65vw, 900px);
+            /* Lowered min for mobile SE support */
             animation: neon-glow 6s ease-in-out infinite, float 4s ease-in-out infinite;
         }
 
         .footer-logo {
-            width: clamp(150px, 30vw, 200px); /* Smaller as requested */
+            width: clamp(150px, 30vw, 200px);
+            /* Smaller as requested */
             display: block;
-            margin: 0 auto 2rem auto; /* Center alignment */
+            margin: 0 auto 2rem auto;
+            /* Center alignment */
             animation: neon-glow 6s ease-in-out infinite;
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         @keyframes neon-glow {
-            0%, 100% {
+
+            0%,
+            100% {
                 filter: drop-shadow(0 0 5px var(--accent-hot)) drop-shadow(0 0 10px var(--accent-pink));
                 opacity: 0.9;
             }
+
             50% {
-                filter: drop-shadow(0 0 12px var(--accent-violet)) drop-shadow(0 0 20px var(--accent-cyan)); 
+                filter: drop-shadow(0 0 12px var(--accent-violet)) drop-shadow(0 0 20px var(--accent-cyan));
                 opacity: 1;
             }
         }
 
-        @media (prefers-reduced-motion: reduce) { 
-            .logo-animate, .footer-logo { animation: none !important; } 
+        @media (prefers-reduced-motion: reduce) {
+
+            .logo-animate,
+            .footer-logo {
+                animation: none !important;
+            }
         }
 
-        .reveal-animation { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-        .reveal-animation.revealed { opacity: 1; transform: translateY(0); }
+        .reveal-animation {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .reveal-animation.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
 
         @keyframes fadeInDown {
@@ -592,15 +618,24 @@
 
         /* 6. STICKY SERVICES (The "Deck" Effect) */
         .services-stack {
-            padding: 8rem 2rem;
+            padding: 8rem 0;
+            /* Vertical only, no side padding here */
             max-width: none;
             margin: 0 auto;
         }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+
+        .stack-intro,
+        .stack-clients {
+            padding: 0 2rem;
+            /* Side padding at content level */
+            text-align: center;
+        }
+
         .stack-intro {
             text-align: center;
             margin-bottom: 5rem;
         }
+
         .stack-clients {
             text-align: center;
             margin-bottom: 6rem;
@@ -611,6 +646,7 @@
             font-size: 4rem;
             margin-bottom: 1rem;
         }
+
         .stack-clients h2 {
             font-size: 4rem;
             margin-bottom: 1rem;
@@ -621,7 +657,8 @@
             position: relative;
             padding-bottom: 20vh;
             /* Space to finish scroll */
-            perspective: 1000px; /* Enable 3D space */
+            perspective: 1000px;
+            /* Enable 3D space */
         }
 
         .service-card-v3 {
@@ -640,7 +677,7 @@
             /* Define accent variable with default */
             --card-accent: #fff;
             border-top: 4px solid var(--card-accent);
-            
+
             border-radius: 32px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(40px);
@@ -653,15 +690,15 @@
             /* Initial state for entry animation */
             opacity: 0;
             transform: translateY(30px);
-            
+
             /* 3D setup */
             transform-style: preserve-3d;
-            
+
             /* Smooth transition for hover effects */
-            transition: 
-                opacity 0.8s ease, 
+            transition:
+                opacity 0.8s ease,
                 /* Note: transform transition handled by JS tilt for mouse movement, but entry needs this */
-                transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
                 box-shadow 0.5s ease,
                 border-color 0.5s ease;
         }
@@ -669,23 +706,26 @@
         /* Hover Effect: Glow Lift + 3D handled by JS */
         .service-card-v3:hover {
             /* Transform is handled by JS tilt script now */
-            box-shadow: 
+            box-shadow:
                 0 30px 60px -12px rgba(0, 0, 0, 0.9),
-                0 0 35px -5px var(--card-accent); /* The specific color glow */
-            border-color: rgba(255,255,255,0.2);
+                0 0 35px -5px var(--card-accent);
+            /* The specific color glow */
+            border-color: rgba(255, 255, 255, 0.2);
             z-index: 100;
         }
-        
+
         /* 3D Inner Elements Parallax */
-        .sc-content, .sc-img {
-            transform: translateZ(40px); /* Pop out from card */
+        .sc-content,
+        .sc-img {
+            transform: translateZ(40px);
+            /* Pop out from card */
         }
 
         .service-card-v3.visible {
             opacity: 1;
             transform: translateY(0);
         }
-        
+
         /* Make hover override the visible state */
         .service-card-v3.visible:hover {
             transform: translateY(-15px) scale(1.02);
@@ -709,11 +749,12 @@
             --card-accent: var(--accent-pink);
             top: 26vh;
         }
-        
+
         .service-card-v3:nth-child(5) {
             --card-accent: #fff;
             top: 28vh;
         }
+
         /* Image inside service card */
         .sc-img {
             width: 100%;
@@ -722,23 +763,24 @@
             overflow: hidden;
             position: relative;
         }
-        
+
         .sc-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.7s ease;
         }
-        
+
         /* Zoom image on card hover */
         .service-card-v3:hover .sc-img img {
             transform: scale(1.1);
         }
-        
+
         /* Subtle text shift on hover */
         .sc-content {
             transition: transform 0.5s ease;
         }
+
         .service-card-v3:hover .sc-content {
             transform: translateX(10px);
         }
@@ -774,29 +816,34 @@
         /* 7. PINNED HORIZONTAL PORTFOLIO (NEW) */
         .horizontal-scroll-section {
             width: 100%;
-            height: 100vh; /* Takes full viewport */
+            height: 100vh;
             overflow: hidden;
-            background: rgba(34, 34, 34, 0.5);
+            background: rgba(18, 18, 18, 0.5);
+            /* Slightly darker */
             position: relative;
-            overscroll-behavior: none;
+            overscroll-behavior: auto;
+            touch-action: pan-y;
+            /* Hint for vertical scroll */
         }
 
         .hs-wrapper {
             display: flex;
             height: 100%;
-            width: 100%; /* Ensure it takes full width of children */
+            width: fit-content;
+            /* Ensure it expands to fit all items */
             will-change: transform;
         }
 
         .hs-intro-panel {
-            width: 100%;
+            width: 100vw;
+            /* Explicit viewport width */
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0 10vw;
+            padding: 0 5vw;
             flex-shrink: 0;
-            background: rgba(17, 17, 17, 0.3);
+            background: rgba(10, 10, 10, 0.4);
             z-index: 2;
         }
 
@@ -815,13 +862,15 @@
         }
 
         .hs-item {
-            width: 80vw; /* Shows next card slightly */
+            width: 85vw;
+            /* Slightly wider items */
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            padding: 0 4vw;
+            padding: 0 2vw;
+            /* Reduced side padding to bring cards closer to edges */
             position: relative;
         }
 
@@ -832,8 +881,10 @@
             border-radius: 30px;
             overflow: hidden;
             transform: scale(0.9);
-            transition: transform 0.5s ease;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            pointer-events: auto;
+            /* Ensure it can be hovered */
         }
 
         .hs-card:hover {
@@ -857,7 +908,7 @@
             left: 0;
             width: 100%;
             padding: 3rem;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
             transform: translateY(20px);
             opacity: 0;
             transition: all 0.5s ease 0.1s;
@@ -871,11 +922,13 @@
         .hs-num {
             font-size: 5rem;
             font-weight: 900;
-            color: rgba(255,255,255,0.1);
+            color: rgba(255, 255, 255, 0.1);
             position: absolute;
             top: 2rem;
             right: 2rem;
             line-height: 1;
+            pointer-events: none;
+            /* Decorative, don't block clicks */
         }
 
         .hs-cat {
@@ -934,55 +987,239 @@
             -webkit-background-clip: text;
             color: transparent;
         }
+
         .full-bleed {
-            width: 100vw;
-            margin-left: calc(50% - 50vw);
-            margin-right: calc(50% - 50vw);
+            width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        /* Mobile Menu Styles (Global) */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(2, 2, 4, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .mobile-nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            transition: color 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .mobile-menu.active .mobile-nav-links a {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .mobile-menu.active .mobile-nav-links li:nth-child(1) a {
+            transition-delay: 0.1s;
+        }
+
+        .mobile-menu.active .mobile-nav-links li:nth-child(2) a {
+            transition-delay: 0.2s;
+        }
+
+        .mobile-menu.active .mobile-nav-links li:nth-child(3) a {
+            transition-delay: 0.3s;
+        }
+
+        .mobile-menu.active .mobile-nav-links li:nth-child(4) a {
+            transition-delay: 0.4s;
+        }
+
+        .mobile-menu-cta {
+            color: var(--accent-cyan) !important;
         }
 
         @media(max-width: 768px) {
             .mega-text {
-                font-size: 4rem;
+                font-size: 3.5rem;
+            }
+
+            .hero-title-new {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .tagline-new {
+                font-size: 1.2rem;
+                margin-bottom: 2rem;
             }
 
             .nav-pill {
                 top: 1rem;
-                padding: 0.5rem 1.5rem;
-                width: 90%;
+                padding: 0.5rem 1.25rem;
+                width: 95%;
                 justify-content: space-between;
+                gap: 1rem;
             }
 
             .nav-links {
                 display: none;
             }
 
+            .nav-actions {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .nav-cta {
+                padding: 0.4rem 1rem;
+                font-size: 0.75rem;
+            }
+
+            .mobile-toggle {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 24px;
+                height: 14px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                z-index: 1001;
+            }
+
+            .mobile-toggle span {
+                display: block;
+                width: 100%;
+                height: 2px;
+                background: #fff;
+                border-radius: 2px;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .mobile-toggle.active span:nth-child(1) {
+                transform: translateY(6px) rotate(45deg);
+            }
+
+            .mobile-toggle.active span:nth-child(2) {
+                transform: translateY(-6px) rotate(-45deg);
+            }
+
+
             .service-card-v3 {
                 grid-template-columns: 1fr;
                 height: auto;
-                min-height: 60vh;
-                top: 15vh;
+                min-height: auto;
+                padding: 2rem;
+                gap: 2rem;
+                top: 12vh;
+            }
+
+            .sc-content h3 {
+                font-size: 2.2rem;
             }
 
             .sc-img {
-                height: 50px;
+                height: 200px;
+                order: -1;
             }
 
-            .portfolio-item-v3 {
-                min-width: 300px;
-                height: 450px;
+            .hs-item {
+                width: 90vw;
+                padding: 0 5vw;
+                height: 80vh;
+            }
+
+            .hs-card {
+                height: 60vh;
+            }
+
+            .hs-title {
+                font-size: 2rem;
+            }
+
+            .hs-intro-panel {
+                padding: 0 10vw;
+            }
+
+            .hs-intro-title {
+                font-size: 3.5rem;
+            }
+
+            .stack-intro h2,
+            .stack-clients h2 {
+                font-size: 3rem;
+            }
+
+            .logo-marquee-section {
+                padding: 1rem 0;
+            }
+
+            .marquee-content {
+                gap: 2rem;
+                padding-right: 2rem;
+            }
+
+            .marquee-content img {
+                max-height: 40px;
+                max-width: 120px;
             }
         }
 
         /* Process section: larger and uppercase titles, bigger descriptions */
-        .step-title-modern { font-size: 2rem; letter-spacing: 0.05em; text-transform: uppercase; }
-        .step-desc-modern { font-size: 1.25rem; line-height: 1.85; }
-        .border-timeline p { font-size: 1.25rem; line-height: 1.9; }
-        .border-timeline p strong { text-transform: uppercase; font-size: 1.35rem; letter-spacing: 0.04em; }
+        .step-title-modern {
+            font-size: 2rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .step-desc-modern {
+            font-size: 1.25rem;
+            line-height: 1.85;
+        }
+
+        .border-timeline p {
+            font-size: 1.25rem;
+            line-height: 1.9;
+        }
+
+        .border-timeline p strong {
+            text-transform: uppercase;
+            font-size: 1.35rem;
+            letter-spacing: 0.04em;
+        }
 
         /* Mouse Scroll Animation - Refined */
         .mouse-scroll-container {
             position: absolute;
-            bottom: -80px; /* Moved way below */
+            bottom: -80px;
+            /* Moved way below */
             left: 50%;
             transform: translateX(-50%);
             width: 100px;
@@ -993,6 +1230,7 @@
             z-index: 10;
             pointer-events: none;
         }
+
         .mouse {
             position: absolute;
             top: 0;
@@ -1004,11 +1242,19 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             animation: mouse-bounce 2s infinite ease-in-out;
         }
+
         @keyframes mouse-bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(10px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(10px);
+            }
         }
- 
+
         .arrow {
             position: absolute;
             left: 50%;
@@ -1018,43 +1264,66 @@
             transform: translateX(-50%);
             animation: arrow-fade 2.2s infinite ease-out;
         }
-        .arrow::before, 
-        .arrow::after { 
-            content: ''; 
-            position: absolute; 
-            width: 14px; 
-            height: 3px; 
-            background-color: rgba(255, 255, 255, 0.8); 
-            top: 10px; 
-            border-radius: 2px; 
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
-        } 
-        .arrow::before { 
-            left: 0; 
-            transform: rotate(45deg); 
-        } 
-        .arrow::after { 
-            right: 0; 
-            transform: rotate(-45deg); 
-        } 
+
+        .arrow::before,
+        .arrow::after {
+            content: '';
+            position: absolute;
+            width: 14px;
+            height: 3px;
+            background-color: rgba(255, 255, 255, 0.8);
+            top: 10px;
+            border-radius: 2px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .arrow::before {
+            left: 0;
+            transform: rotate(45deg);
+        }
+
+        .arrow::after {
+            right: 0;
+            transform: rotate(-45deg);
+        }
+
         /* Staggered arrow positions below the mouse */
-        .arrow:nth-of-type(1) { 
-            top: 100px; 
-            animation-delay: 0s; 
+        .arrow:nth-of-type(1) {
+            top: 100px;
+            animation-delay: 0s;
         }
-        .arrow:nth-of-type(2) { 
-            top: 125px; 
-            animation-delay: 0.3s; 
+
+        .arrow:nth-of-type(2) {
+            top: 125px;
+            animation-delay: 0.3s;
         }
-        @keyframes arrow-fade { 
-            0% { opacity: 0; transform: translateX(-50%) translateY(-5px); } 
-            30% { opacity: 1; transform: translateX(-50%) translateY(0); } 
-            70% { opacity: 0; transform: translateX(-50%) translateY(10px); } 
-            100% { opacity: 0; transform: translateX(-50%) translateY(10px); } 
+
+        @keyframes arrow-fade {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-5px);
+            }
+
+            30% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+
+            70% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(10px);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(10px);
+            }
         }
+
         .scroll-text {
             position: absolute;
-            bottom: 10px; /* Spaced out from arrows */
+            bottom: 10px;
+            /* Spaced out from arrows */
             width: 100%;
             text-align: center;
             color: rgba(255, 255, 255, 0.6);
@@ -1064,7 +1333,19 @@
             text-transform: uppercase;
             animation: text-pulse 2.5s infinite ease-in-out;
         }
-        @keyframes text-pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.8; } }
+
+        @keyframes text-pulse {
+
+            0%,
+            100% {
+                opacity: 0.4;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+        }
+
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -1140,7 +1421,9 @@
             letter-spacing: 0.05em;
         }
 
-        .form-input, .form-select, .form-textarea {
+        .form-input,
+        .form-select,
+        .form-textarea {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border-glass);
             border-radius: 8px;
@@ -1151,7 +1434,9 @@
             transition: all 0.3s;
         }
 
-        .form-input:focus, .form-select:focus, .form-textarea:focus {
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
             outline: none;
             border-color: var(--accent-cyan);
             background: rgba(255, 255, 255, 0.1);
@@ -1214,11 +1499,47 @@
         <img src="assets/hhSymbol.svg" alt="HH" class="nav-logo">
         <ul class="nav-links">
             <li><a href="#services">Services</a></li>
-            <li><a href="#portfolio">Cases</a></li>
-            <li><a href="#agency">Agency</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#clients">Clients</a></li>
         </ul>
-        <a href="#contact" class="nav-cta">Start Project</a>
+        <div class="nav-actions">
+            <a href="javascript:void(0)" class="nav-cta" onclick="openContactModal()">Start Project</a>
+            <button class="mobile-toggle" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+            </button>
+        </div>
     </nav>
+
+    <!-- MOBILE MENU OVERLAY -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-inner">
+            <ul class="mobile-nav-links">
+                <li><a href="#services" onclick="toggleMobileMenu()">Services</a></li>
+                <li><a href="#portfolio" onclick="toggleMobileMenu()">Portfolio</a></li>
+                <li><a href="#clients" onclick="toggleMobileMenu()">Clients</a></li>
+                <li><a href="javascript:void(0)" onclick="toggleMobileMenu(); openContactModal();"
+                        class="mobile-menu-cta">Start Project</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.querySelector('.mobile-menu');
+            const toggle = document.querySelector('.mobile-toggle');
+            menu.classList.toggle('active');
+            toggle.classList.toggle('active');
+
+            if (menu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        document.querySelector('.mobile-toggle').addEventListener('click', toggleMobileMenu);
+    </script>
 
     <!-- GLOBAL BACKGROUND -->
     <div class="fixed-bg">
@@ -1242,15 +1563,16 @@
             </p>
 
             <div class="cta-buttons">
-                <a href="#contact" class="btn-new btn-primary-new">Start Your Journey</a>
-                <a href="#services" class="btn-new btn-secondary-new">View Our Work</a>
+                <a href="javascript:void(0)" class="btn-new btn-primary-new" onclick="openContactModal()">Start Your
+                    Journey</a>
+                <a href="#portfolio" class="btn-new btn-secondary-new">View Our Work</a>
             </div>
         </div>
         <!-- Mouse Scroll Indicator -->
         <div class="mouse-scroll-container">
             <div class="mouse">
                 <!-- Wheel removed as requested -->
-          <div class="wheel"></div>
+                <div class="wheel"></div>
             </div>
             <div class="arrow"></div>
             <div class="scroll-text">Scroll</div>
@@ -1362,19 +1684,22 @@
                 </div>
             </div>
         </div>
+    </section>
 
     <!-- CINEMATIC PORTFOLIO (PINNED HORIZONTAL) -->
     <section class="horizontal-scroll-section" id="portfolio">
         <div class="hs-wrapper">
             <!-- Intro Panel -->
             <div class="hs-intro-panel">
-                <h2 class="hs-intro-title">Past<br><span class="text-gradient">Projects</span></h2>
-                <p class="hs-intro-desc">Explore our past projects, from social media campaigns to live events to corporate videos.</p>
+                <h2 class="hs-intro-title">Our<br><span class="text-gradient">Portfolio</span></h2>
+                <p class="hs-intro-desc">Explore our past projects, from social media campaigns to live events to
+                    corporate videos.</p>
             </div>
 
             <!-- Project 1 -->
             <div class="hs-item">
-                <div class="hs-card" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+                <div class="hs-card" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare
+                    data-tilt-max-glare="0.2">
                     <img src="assets/" class="hs-img" alt="Work">
                     <span class="hs-num">01</span>
                     <div class="hs-content">
@@ -1386,7 +1711,8 @@
 
             <!-- Project 2 -->
             <div class="hs-item">
-                <div class="hs-card" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+                <div class="hs-card" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare
+                    data-tilt-max-glare="0.2">
                     <img src="assets/" class="hs-img" alt="Work">
                     <span class="hs-num">02</span>
                     <div class="hs-content">
@@ -1398,7 +1724,8 @@
 
             <!-- Project 3 -->
             <div class="hs-item">
-                <div class="hs-card" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+                <div class="hs-card" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare
+                    data-tilt-max-glare="0.2">
                     <img src="assets/" class="hs-img" alt="Work">
                     <span class="hs-num">03</span>
                     <div class="hs-content">
@@ -1410,7 +1737,8 @@
 
             <!-- Project 4 -->
             <div class="hs-item">
-                <div class="hs-card" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+                <div class="hs-card" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare
+                    data-tilt-max-glare="0.2">
                     <img src="assets/" class="hs-img" alt="Work">
                     <span class="hs-num">04</span>
                     <div class="hs-content">
@@ -1422,7 +1750,8 @@
 
             <!-- Project 5 -->
             <div class="hs-item">
-                <div class="hs-card" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+                <div class="hs-card" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare
+                    data-tilt-max-glare="0.2">
                     <img src="assets/" class="hs-img" alt="Work">
                     <span class="hs-num">05</span>
                     <div class="hs-content">
@@ -1433,17 +1762,20 @@
             </div>
         </div>
     </section>
-<br>
-<br>
-<br>
-<br>
- <!-- MARQUEE -->
-    <section class="clients-stack" id="services">
+    <br>
+    <br>
+    <br>
+    <br>
+    <!-- MARQUEE (CLIENTS) -->
+    <section class="clients-stack full-bleed" id="clients" style="padding-top: 10rem;">
         <div class="stack-clients">
-            <h2>Our <span class="b-gradient">Clients</span></h2>
-            <p style="color:var(--text-secondary); font-size:1.2rem;">We've worked with a diverse range of clients, from leading brands to creative agencies. Trust us to deliver results that drive success.</p>
+            <h2 class="reveal-animation">Our <span class="b-gradient">Clients</span></h2>
+            <p class="reveal-animation"
+                style="color:var(--text-secondary); font-size:1.2rem; max-width: 800px; margin: 0 auto; line-height: 1.6;">
+                We've worked with a diverse range of clients, from leading brands to creative agencies. Trust us to
+                deliver results that drive success.</p>
         </div>
-            </section>
+    </section>
     <div class="logo-marquee-section">
         <div class="marquee-track">
             <!-- Duplicate content for infinite scroll -->
@@ -1493,10 +1825,9 @@
             </div>
         </div>
     </div>
-        <!-- CTA Below Marquee -->
-        <div class="marquee-cta-container">
-            <button class="btn-new btn-primary-new" onclick="openContactModal()">Get In Touch</button>
-        </div>
+    <!-- CTA Below Marquee -->
+    <div class="marquee-cta-container">
+        <button class="btn-new btn-primary-new" onclick="openContactModal()">Get In Touch</button>
     </div>
 
     <!-- CONTACT MODAL -->
@@ -1538,7 +1869,8 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label">Message *</label>
-                    <textarea class="form-textarea" required placeholder="Tell us about your project goals..."></textarea>
+                    <textarea class="form-textarea" required
+                        placeholder="Tell us about your project goals..."></textarea>
                 </div>
                 <button type="submit" class="submit-btn" disabled>Send Message</button>
             </form>
@@ -1565,36 +1897,35 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
+                    entry.target.classList.add('revealed');
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.service-card-v3, .portfolio-item-v3').forEach(el => observer.observe(el));
+        document.querySelectorAll('.service-card-v3, .portfolio-item-v3, .reveal-animation, .hs-item').forEach(el => observer.observe(el));
 
         window.addEventListener('load', () => {
             const horizontalSection = document.querySelector('.horizontal-scroll-section');
             const horizontalWrapper = document.querySelector('.hs-wrapper');
-            
+
             if (horizontalSection && horizontalWrapper) {
                 // Calculate scroll amount: total width - viewport width
-                const getScrollAmount = () => -(horizontalWrapper.scrollWidth - window.innerWidth);
-                
                 // Create the tween
                 gsap.to(horizontalWrapper, {
-                    x: getScrollAmount,
+                    x: () => -(horizontalWrapper.scrollWidth - window.innerWidth),
                     ease: "none",
                     scrollTrigger: {
                         trigger: horizontalSection,
                         start: "top top",
-                        // Increase the scroll distance (e.g., width * 1.2) to make it feel less rushed
-                        end: () => `+=${(horizontalWrapper.scrollWidth - window.innerWidth)}`, 
+                        // Precise end point to match total movement distance
+                        end: () => "+=" + (horizontalWrapper.scrollWidth - window.innerWidth),
                         pin: true,
-                        scrub: 1,
+                        scrub: 1.2, // Slightly smoother scrub
                         invalidateOnRefresh: true,
-                        anticipatePin: 1, // Smooth out pinning entry
+                        anticipatePin: 1,
                     }
                 });
-                
+
                 // Refresh ScrollTrigger to ensure start/end points are correct after load
                 ScrollTrigger.refresh();
             }
